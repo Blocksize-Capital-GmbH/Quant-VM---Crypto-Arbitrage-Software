@@ -1,0 +1,72 @@
+version: "3.9"
+
+services:
+  algo-db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: "on-failure"
+    environment:
+      POSTGRES_PASSWORD: dicn23fnio
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      PGDATA: /var/lib/postgresql/data
+    expose:
+      - "5432"
+
+  prometheus:
+    image: prometheus_simple:latest
+    ports:
+      - "9090:9090"
+    restart: always
+    expose:
+      - "9090"
+
+  response_times:
+    depends_on:
+      - algo-db
+    ports:
+      - "8000:8000"
+    image: trading_strategy:latest
+    restart: always
+    expose:
+      - "8000"
+    environment:
+      SCRIPT: /workdir/src/latency_measurement/response_times.py
+
+  algo-performance-metrics:
+    depends_on:
+      - algo-db
+    image: trading_strategy:latest
+    restart: always
+    environment:
+      SCRIPT: /workdir/src/performance/algo_performance.py
+
+  arbitrage_trader:
+    depends_on:
+      - algo-db
+    image: trading_strategy:latest
+    restart: always
+    environment:
+      SCRIPT: /workdir/src/algo_multilateral_arbitrage.py
+
+  portfolio-tracker:
+    depends_on:
+      - algo-db
+    image: trading_strategy:latest
+    restart: always
+    environment:
+      SCRIPT: /workdir/src/trading_environment/balances.py
+
+  open_order_updates:
+    depends_on:
+      - algo-db
+    image: trading_strategy:latest
+    restart: always
+    environment:
+      SCRIPT: /workdir/src/order_status/order_status.py
+
+volumes:
+  postgres-data:
