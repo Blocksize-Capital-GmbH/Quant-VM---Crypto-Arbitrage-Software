@@ -11,7 +11,7 @@ Trading of the assets is performed through Quant SDK developed by Blocksize Capi
 
 Definition of containers is contained in docker-compose.yaml and operated by [docker-compose](https://docs.docker.com/compose/).
 
-Algorithm is deployed like a set of docker containers. The set includes two service containers and the containers of the algorithm:
+Algorithm is deployed like a set of [docker](https://www.docker.com/) containers. The set includes two service containers and the containers of the algorithm:
  * Container with Postgres database
  * Prometheus server
  * Trading algorithm
