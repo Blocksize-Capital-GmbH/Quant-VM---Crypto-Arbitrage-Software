@@ -25,7 +25,9 @@ For database image can be used standard Postgres image thar contains version >=1
 To check whether the image is in the system, please, use `docker images`.
 
 ### Prometheus 
-Image for Prometheus server is *prom/prometheus* that exposes port 9090.
+Docker image for Prometheus server is created using command executed from project root `cd prometheus; docker build .; cd ..`. 
+The base image is *prom/prometheus* that is downloaded automatically. THe Prometheus configuration is located in **prometheus/prometheus.yml**. 
+Finally, for correct operation the image exposes port 9090.
 
 ### Arbitrage algorithm and supplementary services
 Arbitrage algorithm and supplementary services use image that can be created from *Dockerfile* contained in the project with base image *python:3.9-slim-buster* with Python 3.9.
@@ -49,6 +51,10 @@ Supplementary services provided information about latency to the Blocksize Capit
 Application was tested on Python 3.9 but there should be no problem to run it on Python 3.8. 
 On the other hand, problems with (yet) unsupported packages were detected for Python 3.10 and 3.11. 
 Unless the packages are not fixed more recent versions of Python are not available.
+
+### Python virtual environment
+To prevent interaction with system Python packages we use virtual environment that is operated by [poetry](https://python-poetry.org/) that simplifies work with virtual environment. 
+Actual configuration of the virtual environment is found **pyproject.toml**. During docker image build the virtual environment is installed on the docker image.
 
 ## Known issues
 The code was not properly tested and so it may contain bugs. Secondly, validation of the algorithm was not executed.

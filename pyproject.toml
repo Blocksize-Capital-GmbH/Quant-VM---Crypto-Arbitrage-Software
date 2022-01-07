@@ -2,7 +2,7 @@
 name = "arbitrage-algorithm"
 version = "0.1.0"
 description = "Arbitrage algorithm"
-authors = ["mafycek <h.lavicka@email.cz>"]
+authors = ["Hynek Lavicka <hl@blocksize-capital.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
