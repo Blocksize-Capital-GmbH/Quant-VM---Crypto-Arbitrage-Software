@@ -12,7 +12,7 @@ Trading of the assets is performed through Quant SDK developed by Blocksize Capi
 Definition of containers is contained in docker-compose.yaml and operated by [docker-compose](https://docs.docker.com/compose/).
 
 Algorithm is deployed like a set of [docker](https://www.docker.com/) containers. The set includes two service containers and the containers of the algorithm:
- * Container with Postgres database
+ * Postgres database
  * Prometheus server
  * Trading algorithm
  * Measurement of response times
@@ -54,7 +54,7 @@ Unless the packages are not fixed more recent versions of Python are not availab
 
 ### Python virtual environment
 To prevent interaction with system Python packages we use virtual environment that is operated by [poetry](https://python-poetry.org/) that simplifies work with virtual environment. 
-Actual configuration of the virtual environment is found **pyproject.toml**. During docker image build the virtual environment is installed on the docker image.
+Actual configuration of the virtual environment is found in **pyproject.toml**. During docker image build the virtual environment is installed on the docker image.
 
 ## Known issues
 The code was not properly tested and so it may contain bugs. Secondly, validation of the algorithm was not executed.
